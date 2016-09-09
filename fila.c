@@ -2,6 +2,34 @@
 #include <stdlib.h>
 #include "fila.h"
 
+void inserirEsq(FILA f, int e){
+  if(f->maisNovo == NULL) {
+    f->maisAntigo = f->maisNovo = novoNo(e, NULL);
+  } else {
+    f->Antigo->prev = novoNo(e, NULL);
+    f->maisAntigo = f->maisAntigo->prev;
+  }  
+}
+
+int removerDir(FILA f){
+  int x;
+  link t;
+  if(filaVazia(f)){
+    printf ("Erro, a fila esta vazia\n");
+    return 0;
+  }
+  
+  x = f->maisNovo->item;
+  t = f->maisNovo;
+  f->maisNovo = f->maisNovo->prev;
+ 
+  if(f->maisNovo == NULL)
+    f->maisAntigo = NULL;
+
+  free(t);
+  return x;
+}
+
 
 link novoNo(int item, link next) {
   link t = malloc(sizeof *t);
